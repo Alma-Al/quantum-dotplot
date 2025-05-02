@@ -27,18 +27,18 @@ An interactive single‑page React/Vite application that showcases quantum proce
 ---
 ## Design and Implementation Notes
 - **Layout**  
-  - Intro text with an illustration appear first  
-  - Empty dotplot that slowly reveals more information about superconducting and trapped-ion qubits as you scroll
+  - Intro text with an illustration appears first  
+  - Empty dot plot that slowly reveals more information about superconducting and trapped-ion qubits as you scroll
 
 - **Dotplot**
-  - log-scale axes with custome ticks and superscripts for the exponents
+  - log-scale axes with custom ticks and superscripts for the exponents
   - Superconducting qubits as blue squared and trapped ion qubits as circles
-  - Increasing size of the trapped ion qubits correlates to denser connectivity
-  - Hovering over the plot points show the year
+  - Increasing size of the trapped ion qubits points correlates to denser connectivity
+  - Hovering over the plot points shows the year
 
 - **Styling & Accessibility**  
   - Simple, sleek interface so that the data visualization is front and center
   - Minimal, high-contrast color scheme to maximize legibility
   - Additionally, coloring and shapes are both used to ensure that information is not conveyed by color alone 
-  - We use relative font‑sizes and generous spacing so text remains readable at all viewport widths.
-  - Scroll triggers and  floating boxes are operable via keyboard (with visible focus outlines).
+  - We use relative font sizes and generous spacing so text remains readable at all viewport widths.
+  - Scroll triggers and floating boxes are operable via keyboard (with visible focus outlines).
