@@ -1,5 +1,5 @@
 //src/components/dotplot.tsx
-
+import { symbol, symbolSquare, symbolCircle } from 'd3';
 import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
@@ -7,15 +7,16 @@ type QPU = {
   name: string;
   type: 'superconducting' | 'trapped_ion';
   qubits: number;
-  quality: number;
+  error: number;
+  year: number
 };
 
 /* hardcoded data
 const sampleData: QPU[] = [
-  { name: 'IBM', type: 'superconducting', qubits: 127, quality: 0.95 },
-  { name: 'IonQ', type: 'trapped_ion', qubits: 11, quality: 0.9 },
-  { name: 'Honeywell H1', type: 'trapped_ion', qubits: 10, quality: 0.92 },
-  { name: 'Google', type: 'superconducting', qubits: 54, quality: 0.88 },
+  { name: 'IBM', type: 'superconducting', qubits: 127, error: 0.95 },
+  { name: 'IonQ', type: 'trapped_ion', qubits: 11, error: 0.9 },
+  { name: 'Honeywell H1', type: 'trapped_ion', qubits: 10, error: 0.92 },
+  { name: 'Google', type: 'superconducting', qubits: 54, error: 0.88 },
 ]; */
 
 type DotPlotProps = {
@@ -101,6 +102,14 @@ const DotPlot: React.FC<DotPlotProps> = ({
         .attr('font-size', '16px')   
         .attr('fill', '#333'); 
 
+    svg.append('g')
+        .attr('transform', `translate(0, ${height - margin})`)
+        .call(
+          d3.axisBottom(x)
+            .ticks(50)           
+            .tickSize(4)        
+            .tickFormat(() => '')); 
+    
     const numsY = [1, .1, .01, .001, .0001];
 
     svg.append('g')
@@ -121,6 +130,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
       .selectAll('text')
         .attr('font-size', '16px')   
         .attr('fill', '#333'); 
+          
 
     // x-axis arrow and label
     const defs = svg.append('defs');
@@ -213,15 +223,23 @@ const DotPlot: React.FC<DotPlotProps> = ({
     if (filteredData.length === 0) return; 
 
     // Drawing dots
-    svg.selectAll('circle')
+    svg.selectAll('.mark')
       .data(filteredData)
       .enter()
-      .append('circle')
-      .attr('cx', d => x(d.qubits))
-      .attr('cy', d => y(d.quality))
-      .attr('r', 6)
-      .attr('fill', d => d.type === 'superconducting' ? 'blue' : 'orange')
-      .attr('opacity', 0.8);
+      .append('path')
+        .attr('class', 'mark')
+        .attr('d', d => {
+        // choose square or circle
+            const type = d.type === 'superconducting'
+                ? symbolSquare
+                : symbolCircle;
+            return symbol().type(type).size(100)();  
+        // size(100) ≈ radius 6; tweak as you like
+        })
+      .attr('transform', d => 
+        `translate(${x(d.qubits)},${y(d.error)})`)
+      .attr('fill', d => d.type === 'superconducting' ? '#4A90E2' : '#D35400')
+      .attr('opacity', 0.5);
   }, [data, showSuperconducting, showTrappedIon]);
 
   return <svg ref={svgRef}></svg>;
