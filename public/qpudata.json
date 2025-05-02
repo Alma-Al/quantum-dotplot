@@ -1,0 +1,26 @@
+[
+    {
+      "name": "IBM",
+      "type": "superconducting",
+      "qubits": 127,
+      "quality": 0.95
+    },
+    {
+      "name": "Google",
+      "type": "superconducting",
+      "qubits": 54,
+      "quality": 0.88
+    },
+    {
+      "name": "IonQ",
+      "type": "trapped_ion",
+      "qubits": 11,
+      "quality": 0.90
+    },
+    {
+      "name": "Honeywell",
+      "type": "trapped_ion",
+      "qubits": 10,
+      "quality": 0.92
+    }
+]

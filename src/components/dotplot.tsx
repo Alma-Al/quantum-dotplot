@@ -1,5 +1,6 @@
 //src/components/dotplot.tsx
-import React, { useRef, useEffect } from 'react';
+
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 type QPU = {
@@ -9,12 +10,13 @@ type QPU = {
   quality: number;
 };
 
+/* hardcoded data
 const sampleData: QPU[] = [
   { name: 'IBM', type: 'superconducting', qubits: 127, quality: 0.95 },
   { name: 'IonQ', type: 'trapped_ion', qubits: 11, quality: 0.9 },
   { name: 'Honeywell H1', type: 'trapped_ion', qubits: 10, quality: 0.92 },
   { name: 'Google', type: 'superconducting', qubits: 54, quality: 0.88 },
-];
+]; */
 
 type DotPlotProps = {
   showSuperconducting: boolean;
@@ -26,6 +28,17 @@ const DotPlot: React.FC<DotPlotProps> = ({
   showTrappedIon,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const [data, setData] = useState<QPU[]>([]);
+
+  useEffect(() => {
+    fetch('/qpudata.json')
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<QPU[]>;
+      })
+      .then((json) => setData(json))
+      .catch((err) => console.error('Failed to load QPU data:', err));
+  }, []);
 
   useEffect(() => {
     const width = 800;
@@ -37,13 +50,15 @@ const DotPlot: React.FC<DotPlotProps> = ({
 
     svg.attr('width', width).attr('height', height);
 
-    const x = d3.scaleLinear()
-      .domain([0, d3.max(sampleData, d => d.qubits)!])
+    const x = d3.scaleLog()
+      .base(10)
+      .domain([1, 1e5])
       .range([margin, width - margin]);
       
 
-    const y = d3.scaleLinear()
-      .domain([0.85, 1])
+    const y = d3.scaleLog()
+      .base(10)
+      .domain([1, 1e-4])
       .range([height - margin, margin]);
       
     
@@ -64,14 +79,49 @@ const DotPlot: React.FC<DotPlotProps> = ({
       .attr('font-size', '19px') 
       .text('Average Two-bit Gate Error Rate');
 
+    const superMap: Record<string,string> = {
+        '-': '⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴',
+        '5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'
+    };
+
+    const numsX = [1, 10, 100, 1000, 10000, 100000];
+
     svg.append('g')
       .attr('transform', `translate(0, ${height - margin})`)
-      .call(d3.axisBottom(x));
-      
+      .call(
+        d3.axisBottom(x)
+        .tickValues(numsX)
+        .tickFormat(d => {
+            if (d === 1) return '1';
+            const exp = Math.round(Math.log10(Number(d)));
+            return `10${superMap[exp.toString()]}`;
+        })
+      )
+      .selectAll('text')
+        .attr('font-size', '16px')   
+        .attr('fill', '#333'); 
+
+    const numsY = [1, .1, .01, .001, .0001];
+
     svg.append('g')
       .attr('transform', `translate(${margin}, 0)`)
-      .call(d3.axisLeft(y));
-    
+      .call(
+        d3.axisLeft(y)
+        .tickValues(numsY)
+        .tickFormat(d => {
+            if (d === 1) return '1';
+            const exp = Math.log10(Number(d));
+            const sup = exp.toString()
+            .split('')
+            .map(c => superMap[c] || '')
+            .join('');
+            return `10${sup}`;
+        })
+      )
+      .selectAll('text')
+        .attr('font-size', '16px')   
+        .attr('fill', '#333'); 
+
     // x-axis arrow and label
     const defs = svg.append('defs');
     defs.append('marker')
@@ -153,7 +203,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
       
 
     // draw dots if true
-    const filteredData = sampleData.filter(d => {
+    const filteredData = data.filter(d => {
       return (
         (d.type === 'superconducting' && showSuperconducting) ||
         (d.type === 'trapped_ion' && showTrappedIon)
@@ -172,7 +222,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
       .attr('r', 6)
       .attr('fill', d => d.type === 'superconducting' ? 'blue' : 'orange')
       .attr('opacity', 0.8);
-  }, [showSuperconducting, showTrappedIon]);
+  }, [data, showSuperconducting, showTrappedIon]);
 
   return <svg ref={svgRef}></svg>;
 };
