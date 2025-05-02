@@ -9,6 +9,7 @@ type QPU = {
   qubits: number;
   error: number;
   year: number
+  density: number
 };
 
 /* hardcoded data
@@ -222,6 +223,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
 
     if (filteredData.length === 0) return; 
 
+
     // Drawing dots
     svg.selectAll('.mark')
       .data(filteredData)
@@ -233,7 +235,11 @@ const DotPlot: React.FC<DotPlotProps> = ({
             const type = d.type === 'superconducting'
                 ? symbolSquare
                 : symbolCircle;
-            return symbol().type(type).size(100)();  
+             
+            const area = d.type === 'trapped_ion'
+                ? d.density
+                : 250;
+            return symbol().type(type).size(area)(); 
         // size(100) ≈ radius 6; tweak as you like
         })
       .attr('transform', d => 
