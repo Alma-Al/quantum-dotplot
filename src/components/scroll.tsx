@@ -1,5 +1,6 @@
 //src/components/scroll.tsx
 import React from "react";
+import './scroll.css'
 
 type Scroll = {
   title: string;

@@ -1,6 +1,5 @@
 [
     {
-      "name": "IBM",
       "type": "trapped_ion",
       "qubits": 2,
       "error": 0.2,
@@ -8,7 +7,6 @@
       "density": 250
     },
     {
-      "name": "Google",
       "type": "trapped_ion",
       "qubits": 5,
       "error": 0.2,
@@ -16,7 +14,6 @@
       "density": 250
     },
     {
-        "name": "Google",
         "type": "trapped_ion",
         "qubits": 2,
         "error": 0.00087,
@@ -24,7 +21,6 @@
         "density": 250
     },
     {
-        "name": "Google",
         "type": "trapped_ion",
         "qubits": 7,
         "error": 0.026,
@@ -32,7 +28,6 @@
         "density": 250
     },
     {
-        "name": "Google",
         "type": "trapped_ion",
         "qubits": 12,
         "error": 0.022,
@@ -40,7 +35,6 @@
         "density": 1310
     },
     {
-        "name": "Google",
         "type": "trapped_ion",
         "qubits": 4,
         "error": 0.0019,
@@ -56,7 +50,6 @@
         "density": 1360
     },
     {
-        "name": "Google",
         "type": "trapped_ion",
         "qubits": 103,
         "error": 0.00039,
@@ -64,14 +57,12 @@
         "density": 1360
     },
     {
-      "name": "IonQ",
       "type": "superconducting",
       "qubits": 2,
       "error": 0.13,
       "year": 2006
     },
     {
-      "name": "Honeywell",
       "type": "superconducting",
       "qubits": 2,
       "error": 0.03,
@@ -85,35 +76,30 @@
         "year": 2012
     },
     {
-        "name": "Honeywell",
         "type": "superconducting",
         "qubits": 4,
         "error": 0.0018,
         "year": 2014
     },
     {
-        "name": "IonQ",
         "type": "superconducting",
         "qubits": 12,
         "error": 0.027,
         "year": 2018
     },
     {
-        "name": "Honeywell",
         "type": "superconducting",
         "qubits": 61,
         "error": 0.00205,
         "year": 2019
     },
     {
-        "name": "Honeywell",
         "type": "superconducting",
         "qubits": 53,
         "error": 0.009,
         "year": 2020
     },
     {
-        "name": "IonQ",
         "type": "superconducting",
         "qubits": 58,
         "error": 0.027,
@@ -127,7 +113,6 @@
         "year": 2022
     },
     {
-        "name": "Honeywell",
         "type": "superconducting",
         "qubits": 620,
         "error": 0.0019,

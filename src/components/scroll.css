@@ -1,0 +1,21 @@
+
+.Scroll-content p {
+    text-align: justify;   
+    text-justify: inter-word;
+}
+  
+
+.Scroll-content {
+    padding: 2rem;
+    border: none;
+    background: none;
+    margin: 2rem auto;
+    max-width: 900px;
+    margin: 1rem auto;
+}
+
+  
+.Scroll-content h2 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}

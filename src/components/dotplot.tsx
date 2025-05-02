@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
 type QPU = {
-  name: string;
   type: 'superconducting' | 'trapped_ion';
   qubits: number;
   error: number;
@@ -28,8 +27,6 @@ type DotPlotProps = {
 const DotPlot: React.FC<DotPlotProps> = ({
   showSuperconducting,
   showTrappedIon,
-  showAsymptote1,
-  showAsymptote2,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);

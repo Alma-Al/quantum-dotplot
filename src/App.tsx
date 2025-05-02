@@ -42,8 +42,18 @@ const App: React.FC = () => {
       {/* Intro section with title and image */}
       <div className="content">
         <Scroll
-          title="Hello, Quantum World"
-          text="Quantum processors encode information differently than classical bits. Scroll down to see how different architectures compare."
+          title="<Hello | Quantum | World>"
+          text="Quantum processors today look a lot like the large, room‑filling digital computers of the 1950s: they’re 
+          physically large, limited in the number of computing units (qubits), expensive to build, and demanding in power. 
+          In the current NISQ (Noisy Intermediate‑Scale Quantum) era, devices with 50–1000 qubits operate with two‑qubit gate 
+          error rates of around 10⁻³–10⁻⁴, forcing every variable and every instruction in a quantum program to be carefully 
+          optimized. At the same time, superconducting qubit coherence times (the duration over which quantum information remains 
+          usable) have steadily improved in an almost Moore’s‑Law‑like fashion. This trend, called Schoelkopf’s Law, has seen 
+          coherence times roughly double every year, creating more opportunities for more complex quantum circuits.
+          Although today’s quantum computers have a variety of qubit types (superconducting, trapped‑ion, etc.), they all share 
+          the challenge that each additional qubit doubles the size of the computational space while also amplifying noise. As a 
+          result, error‑mitigation techniques and error-tolerant algorithms are needed to push NISQ systems beyond proof‑of‑concepts 
+          towards a real quantum advantage."
         />
         <div className="intro-image-container">
           <img
@@ -79,7 +89,7 @@ const App: React.FC = () => {
           }}
         >
           <strong>Superconducting Qubits</strong>
-          <p>more about these qubits.</p>
+          <p>Superconducting qubits are tiny circuits etched on a chip and cooled to millikelvin temperatures, where currents flow without resistance.</p>
         </FloatingTextBox>
 
         <FloatingTextBox
@@ -94,7 +104,7 @@ const App: React.FC = () => {
           }}
         >
           <strong>Trapped‐Ion Qubits</strong>
-          <p>more about these qubits.</p>
+          <p>Trapped‑ion qubits store quantum information in the internal states of individual atomic ions held in electromagnetic traps and are manipulated by laser pulses.</p>
         </FloatingTextBox>
       </div>
     </>
