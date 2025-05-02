@@ -13,10 +13,10 @@ type QPU = {
 
 /* hardcoded data
 const sampleData: QPU[] = [
-  { name: 'IBM', type: 'superconducting', qubits: 127, error: 0.95 },
-  { name: 'IonQ', type: 'trapped_ion', qubits: 11, error: 0.9 },
-  { name: 'Honeywell H1', type: 'trapped_ion', qubits: 10, error: 0.92 },
-  { name: 'Google', type: 'superconducting', qubits: 54, error: 0.88 },
+  { type: 'superconducting', qubits: 127, error: 0.95 },
+  { type: 'trapped_ion', qubits: 11, error: 0.9 , density: 250},
+  { type: 'trapped_ion', qubits: 10, error: 0.92 , density: 250},
+  { type: 'superconducting', qubits: 54, error: 0.88 },
 ]; */
 
 type DotPlotProps = {
@@ -84,11 +84,13 @@ const DotPlot: React.FC<DotPlotProps> = ({
       .attr('font-size', '19px') 
       .text('Average Two-bit Gate Error Rate');
 
+    // to include superscript on the axis labels
     const superMap: Record<string,string> = {
         '-': '⁻','0':'⁰','1':'¹','2':'²','3':'³','4':'⁴',
         '5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'
     };
 
+    // x-axis number labels
     const numsX = [1, 10, 100, 1000, 10000, 100000];
 
     svg.append('g')
@@ -114,6 +116,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
             .tickSize(4)        
             .tickFormat(() => '')); 
     
+    // y-axis number label
     const numsY = [1, .1, .01, .001, .0001];
 
     svg.append('g')

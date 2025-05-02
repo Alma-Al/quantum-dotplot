@@ -1,58 +1,44 @@
-<<<<<<< HEAD
-# quantum-dotplot
-=======
-# React + TypeScript + Vite
+# Quantum-dotplot Scrolling Website
+An interactive single‑page React/Vite application that showcases quantum processors through a sticky D3 dot plot and scroll‑triggered storytelling using ScrollMagic.
+---
+## Technologies Used
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- **Framework**  
+  - [React](https://reactjs.org/) (with TypeScript)  
+  - [Vite](https://vitejs.dev/) for fast development and bundling  
 
-Currently, two official plugins are available:
+- **Data Visualization**  
+  - [D3.js](https://d3js.org/) for making the dotplot  
+  - [ScrollMagic](http://scrollmagic.io/) for scroll‑based triggers  
+---
+## Instructions to Run Locally
+1. **Clone the repo**  
+   ```bash
+   git clone https://github.com/Alma-Al/quantum-dotplot.git
+   cd quantum-dotplot
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+2. **Install dependencies**  
+   ```bash
+   npm install
 
-## Expanding the ESLint configuration
+3. **Show website**
+   ```bash
+   npm run dev
+---
+## Design and Implementation Notes
+- **Layout**  
+  - Intro text with an illustration appear first  
+  - Empty dotplot that slowly reveals more information about superconducting and trapped-ion qubits as you scroll
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Dotplot**
+  - log-scale axes with custome ticks and superscripts for the exponents
+  - Superconducting qubits as blue squared and trapped ion qubits as circles
+  - Increasing size of the trapped ion qubits correlates to denser connectivity
+  - Hovering over the plot points show the year
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
->>>>>>> dfd5d72 (Initial commit: scaffold project)
+- **Styling & Accessibility**  
+  - Simple, sleek interface so that the data visualization is front and center
+  - Minimal, high-contrast color scheme to maximize legibility
+  - Additionally, coloring and shapes are both used to ensure that information is not conveyed by color alone 
+  - We use relative font‑sizes and generous spacing so text remains readable at all viewport widths.
+  - Scroll triggers and  floating boxes are operable via keyboard (with visible focus outlines).

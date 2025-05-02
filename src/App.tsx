@@ -15,8 +15,6 @@ const App: React.FC = () => {
   // State for scroll-triggered reveals
   const [showSuper, setShowSuper] = useState(false);
   const [showIon, setShowIon] = useState(false);
-  const [showAsym1, setShowAsym1] = useState(false);
-  const [showAsym2, setShowAsym2] = useState(false);
 
   useEffect(() => {
     const ScrollMagic: any = ScrollMagicNamespace;
@@ -55,6 +53,7 @@ const App: React.FC = () => {
           result, error‑mitigation techniques and error-tolerant algorithms are needed to push NISQ systems beyond proof‑of‑concepts 
           towards a real quantum advantage."
         />
+        {/* Image */}
         <div className="intro-image-container">
           <img
             src={IntroImage}
@@ -96,7 +95,7 @@ const App: React.FC = () => {
           visible={showIon}
           style={{
             position: 'absolute',
-            top: 400,
+            top: 350,
             left: 880,
             width: 200,
             backgroundColor: 'rgba(255,223,186,0.8)',
@@ -104,7 +103,9 @@ const App: React.FC = () => {
           }}
         >
           <strong>Trapped‐Ion Qubits</strong>
-          <p>Trapped‑ion qubits store quantum information in the internal states of individual atomic ions held in electromagnetic traps and are manipulated by laser pulses.</p>
+          <p>Trapped‑ion qubits store quantum information in the internal states of individual atomic ions held in electromagnetic traps and are manipulated by laser pulses.
+            On the plot, size of the trapped-ion data point indicates connectivity; larger means denser connectivity.
+          </p>
         </FloatingTextBox>
       </div>
     </>
