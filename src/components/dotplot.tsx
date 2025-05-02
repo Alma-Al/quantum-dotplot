@@ -30,7 +30,11 @@ const DotPlot: React.FC<DotPlotProps> = ({
   showTrappedIon,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<QPU[]>([]);
+  
+
+  
 
   useEffect(() => {
     fetch('/qpudata.json')
@@ -127,7 +131,7 @@ const DotPlot: React.FC<DotPlotProps> = ({
             .join('');
             return `10${sup}`;
         })
-      )
+        )
       .selectAll('text')
         .attr('font-size', '16px')   
         .attr('fill', '#333'); 
@@ -225,30 +229,62 @@ const DotPlot: React.FC<DotPlotProps> = ({
 
 
     // Drawing dots
-    svg.selectAll('.mark')
-      .data(filteredData)
-      .enter()
-      .append('path')
-        .attr('class', 'mark')
-        .attr('d', d => {
-        // choose square or circle
-            const type = d.type === 'superconducting'
+    svg.selectAll<SVGPathElement, QPU>('.mark')
+        .data(filteredData)
+        .enter()
+        .append('path')
+            .attr('class', 'mark')
+            .attr('d', d => {
+            const shp = d.type === 'superconducting'
                 ? symbolSquare
                 : symbolCircle;
-             
             const area = d.type === 'trapped_ion'
                 ? d.density
                 : 250;
-            return symbol().type(type).size(area)(); 
-        // size(100) ≈ radius 6; tweak as you like
-        })
-      .attr('transform', d => 
-        `translate(${x(d.qubits)},${y(d.error)})`)
-      .attr('fill', d => d.type === 'superconducting' ? '#4A90E2' : '#D35400')
-      .attr('opacity', 0.5);
-  }, [data, showSuperconducting, showTrappedIon]);
+            return symbol().type(shp).size(area)();
+            })
+            .attr('transform', d =>
+            `translate(${x(d.qubits)},${y(d.error)})`
+            )
+            .attr('fill', d =>
+            d.type === 'superconducting' ? '#4A90E2' : '#D35400'
+            )
+            .attr('opacity', 0.5)
+            .on('mouseover', (event, d) => {
+            d3.select(tooltipRef.current!)
+                .style('visibility', 'visible')
+                .text(`Year: ${d.year}`);
+            })
+            .on('mousemove', (event) => {
+            const tt = tooltipRef.current!;
+            tt.style.left = `${event.offsetX + 10}px`;
+            tt.style.top  = `${event.offsetY + 10}px`;
+            })
+            .on('mouseout', () => {
+            d3.select(tooltipRef.current!)
+                .style('visibility', 'hidden');
+    });
 
-  return <svg ref={svgRef}></svg>;
+    }, [data, showSuperconducting, showTrappedIon]);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <svg ref={svgRef} />
+      <div
+        ref={tooltipRef}
+        style={{
+          position: 'absolute',
+          pointerEvents: 'none',
+          background: 'rgba(0,0,0,1)',
+          color: 'white',
+          padding: '4px 8px',
+          borderRadius: '4px',
+          fontSize: '12px',
+          visibility: 'hidden',
+        }}
+      />
+    </div>
+  );
 };
 
 export default DotPlot;
