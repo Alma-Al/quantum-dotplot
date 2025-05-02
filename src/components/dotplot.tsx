@@ -28,6 +28,8 @@ type DotPlotProps = {
 const DotPlot: React.FC<DotPlotProps> = ({
   showSuperconducting,
   showTrappedIon,
+  showAsymptote1,
+  showAsymptote2,
 }) => {
   const svgRef = useRef<SVGSVGElement | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -264,6 +266,8 @@ const DotPlot: React.FC<DotPlotProps> = ({
             d3.select(tooltipRef.current!)
                 .style('visibility', 'hidden');
     });
+      
+      
 
     }, [data, showSuperconducting, showTrappedIon]);
 
